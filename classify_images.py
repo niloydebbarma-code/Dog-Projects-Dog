@@ -24,4 +24,4 @@ def classify_images(images_dir, results_dic, model_name):
         
         _, predicted_idx = torch.max(output, 1)
         predicted_class = models.densenet121(pretrained=True).class_to_idx.keys()[predicted_idx.item()]
-        results
+        results_dic[filename].append(predicted_class)
