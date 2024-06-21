@@ -22,8 +22,3 @@ This project uses a pre-trained image classifier to identify dog breeds. The pro
 
 To get started, ensure you have Docker installed and open this project in GitHub Codespaces.
 
-## Running the Project
-
-1. To classify images in the `pet_images` folder:
-   ```bash
-   sh run_models_batch.sh
