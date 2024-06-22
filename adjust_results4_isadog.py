@@ -1,22 +1,10 @@
 def adjust_results4_isadog(results_dic, dogfile):
-    dognames = dict()
-    
-    with open(dogfile) as f:
-        line = f.readline()
-        while line != "":
-            line = line.rstrip()
-            if line not in dognames:
-                dognames[line] = 1
-            line = f.readline()
+    dognames = set()
+    with open(dogfile, "r") as f:
+        for line in f:
+            dognames.add(line.strip())
     
     for key in results_dic:
-        if results_dic[key][0] in dognames:
-            if results_dic[key][1] in dognames:
-                results_dic[key].extend((1, 1))
-            else:
-                results_dic[key].extend((1, 0))
-        else:
-            if results_dic[key][1] in dognames:
-                results_dic[key].extend((0, 1))
-            else:
-                results_dic[key].extend((0, 0))
+        is_dog = 1 if results_dic[key][0] in dognames else 0
+        classifier_is_dog = 1 if results_dic[key][1] in dognames else 0
+        results_dic[key].extend([is_dog, classifier_is_dog])
