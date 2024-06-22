@@ -1,9 +1,10 @@
-import argparse
+from classifier import classifier
 
-def get_input_args():
-    parser = argparse.ArgumentParser(description='Classify pet images using a CNN model.')
-    parser.add_argument('--dir', type=str, default='pet_images/', help='Path to the folder of pet images')
-    parser.add_argument('--arch', type=str, default='vgg', choices=['resnet', 'alexnet', 'vgg'], help='CNN model architecture (choices: resnet, alexnet, vgg)')
-    parser.add_argument('--dogfile', type=str, default='dognames.txt', help='Text file with dog names')
-    args = parser.parse_args()
-    return args
+def classify_images(images_dir, results_dic, model):
+    results_dic.update({
+        image_file: [details[0], classifier(images_dir + image_file, model).lower().strip(), 1 if details[0] in classifier(images_dir + image_file, model).lower().strip() else 0]
+        for image_file, details in results_dic.items()
+    })
+
+# Example usage:
+# classify_images('path/to/images/', results_dic, 'vgg')
